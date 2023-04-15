@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2.2.17/dist/tailwind.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Dashboard</title>
+</head>
+
+<body class="bg-gray-100 h-screen" onload="myFun()">
+    <nav class="bg-blue-50 shadow-md h-22 w-full"
+        style="background-color: whitesmoke; border: 2px solid ; width: 100%; position: fixed; z-index: 1;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style="padding-top: 7px;">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <a href="#" class="flex items-center text-gray-900 hover:text-blue-600"
+                        style="padding-top: 10px; padding-bottom: 10px;">
+                        <svg class="h-9 w-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 1L2 7.5L12 14L22 7.5L12 1Z"></path>
+                            <path d="M2 17.5L12 24L22 17.5"></path>
+                            <path d="M2 7.5L12 14"></path>
+                            <path d="M22 7.5L12 14"></path>
+                        </svg>
+                        <span class="ml-2 font-semibold text-xl" style="font-size: 22px;">Chem - Lab</span>
+                    </a>
+                    <div class="hidden sm:block sm:ml-10">
+                        <div class="flex mt-4">
+                            <a href="#"
+                                class="rounded-md  font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus:text-blue-600"
+                                style="font-weight: bold; font-size: 20px; padding-bottom: 10px;">Home</a>
+                            <a href="#"
+                                class="ml-8 rounded-md  font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus:text-blue-600"
+                                style="font-weight: bold; font-size: 20px; padding-bottom: 10px;">About</a>
+                            <a href="#"
+                                class="ml-8  rounded-md  font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus:text-blue-600"
+                                style="font-weight: bold; font-size:20px; padding-bottom: 10px;">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden sm:block">
+
+                    <div class="flex items-center mt-2">
+                        <i class='fa fa-user-circle' style="font-size: 36px;"></i>
+                        <p id="user" style="color: black;  margin-left: 4px; font-size: 20px; font-weight: 100;"></p>
+                        <a href="index.html"
+                            class="ml-20 block px-3 py-2 rounded-md text-base font-medium bg-blue-500 text-black hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                            style="margin-left: 16px; background-color: white; border: 2px solid #000000; font-weight: bolder;">Log
+                            Out</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex sm:hidden">
+                    <button type="button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-900 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-blue-600"
+                        aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="sm:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus:text-blue-600">Home</a>
+                <a href="#"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus:text-blue-600">About</a>
+                <a href="#"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus:text-blue-600">Contact</a>
+                <a href="index.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus:text-blue-600">Log
+                    IN</a>
+                <a href="register.html"
+                    class="block px-3 py-2 rounded-md text-base font-medium bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <div style="position: absolute; top: 100px; left: 10px; background-color:transparent ; border-radius: 5px;">
+        <h1 class="text-3xl font-bold ml-4">Estimation Of Glucose</h1>
+    </div>
+    <div style="position: relative; top: 120px; left: 20px; background-color:transparent ; border-radius: 5px;">
+        <div class="flex gap-4 flex items-center justify-center h-16 ml-2 mr-2">
+            <button class="text-black  font-bold py-2 px-4 rounded" onclick="theory()"
+                style="background-color: white; border: 2px solid #000000;">
+                Theory
+            </button>
+            <button class="text-black  font-bold py-2 px-4 rounded" onclick="procedure()"
+                style="background-color: white; border: 2px solid #000000;">
+                Procedure
+            </button>
+            <button class="text-black  font-bold py-2 px-4 rounded" onclick="simulator()"
+                style="background-color: white; border: 2px solid #000000;">
+                Simulator
+            </button>
+            <button class="text-black  font-bold py-2 px-4 rounded" onclick="quiz()"
+                style="background-color: white; border: 2px solid #000000;">
+                Quiz
+            </button>
+            <button class="text-black  font-bold py-2 px-4 rounded" onclick="help()"
+                style="background-color: white; border: 2px solid #000000;">
+                Help
+            </button>
+        </div>
+        <div
+            style="justify-content: center; align-items: center; margin-left: 20%; margin-right: 20%; padding-bottom: 10%;" id ="main">
+            <p style="font-weight: bold; font-size: 20px;" id="title_">Theory:</p>
+            <br>
+            <button class="collapsible" id="c1">Objective</button>
+            <div class="content" id="d1">
+                <p style="text-align: justify;">To estimate the amount of glucose in the whole of the given solution.
+                </p>
+            </div>
+            <button class="collapsible" id="c2" style="align-items: center;">Introduction</button>
+            <div class="content" id = "d2" >
+                <p style="text-align: justify;"><b>Glucose</b>:
+                    <br>
+                    Glucose is a very important monosaccharide in biology. It is one of the major products of
+                    photosynthesis. The living cell uses it as a source of energy and metabolic intermediate. The name
+                    "Gluc" comes from the Greek word "glykys", which means "sweet", plus the suffix "-ose" which denotes
+                    a sugar.
+
+                    Two stereoisomers of the aldohexose sugars are known as glucose, only one of which (D-glucose) is
+                    biologically active. This form (D-glucose) is often referred to as dextrose monohydrate, or,
+                    especially in the food industry, simply dextrose (from dextrorotatory glucose).
+                </p>
+                <br>
+                <p style="text-align: justify;"><b>Structure of Glucose:</b><br>
+                    
+                    D or L Designation:
+                    For the structure of carbohydrates the bonding pattern of the hydrogen and hydroxyl groups around
+                    each carbon atom is very important. An asymmetric carbon atom is that a carbon atom which is bonded
+                    to four different groups. Glucose, with six carbon atoms, has four asymmetric carbon atoms. The
+                    arrangement of the OH's and H's on these atoms is very important. Structural formulas for sugar
+                    molecules are often written in the vertical arrangement with the aldehyde or the ketone group at or
+                    near the top. When written in this particular way, the position of the OH on the last asymmetric
+                    carbon atom will tell us whether we are dealing with a "D" sugar or an "L" sugar. "D" stands for
+                    dextro and "L" stands for levo. If the OH is on the right, it is a "D" sugar, in this case
+                    D-glucose. If the OH is on the left, then it has been "L" sugars. When you see D's and L's in front
+                    of the names of carbohydrates, this is the reason for it.</p>
+
+                <br>
+                <p style="text-align: justify;">
+                    <b>Fischer Projection Formula:</b><br>
+
+                    Hermann Emil Fischer in 1891 devised the Fischer projection. It is a two-dimensional representation
+                    of a three-dimensional organic molecule by projection. Fischer projections were originally proposed
+                    for the depiction of carbohydrates and used by chemists, particularly in organic chemistry and
+                    biochemistry. The use of Fischer projections in non-carbohydrates is discouraged; as such drawings
+                    are ambiguous when confused with other types of drawing.
+
+
+
+                    In Fischer projection all bonds are depicted as horizontal or vertical lines and these entire
+                    horizontal bonds project toward the viewer, while vertical bonds project away from the viewer.
+                    Therefore, a Fischer projection cannot be rotated by 90° or 270° in the plane of the page or the
+                    screen, as the orientation of bonds relative to one another can change, converting a molecule to its
+                    enantiomer. The carbon chain is depicted vertically, with carbon atoms represented by the centre of
+                    crossing lines. The orientation of the carbon chain is so that the C1 carbon is at the top. In an
+                    aldose, the carbon of the aldehyde group is C1; and in a ketose the carbon of the ketone group has
+                    the lowest possible number (usually C2). According to IUPAC rules all hydrogen atoms should
+                    preferably be drawn explicitly.
+
+                    <img src="fisher.jpg" style="padding-left: 6%;">
+                </p>
+                <br>
+                <p><b>Theory of Estimation of Glucose:</b></p>
+                <p style="text-align: justify;">A freshly prepared Fehling’s solution is first standardized by titration
+                    against a standard solution of pure glucose A.R. The standardized Fehling’s solution is then used to
+                    determine the amount of glucose in an unknown sample or solution by direct titration.
+
+                    The Fehling’s solution being a solution of cupric ions is blue in colour and at the end point
+                    changes to red colour precipitate of cuprous oxide. As the supernatant liquid is blue and the
+                    precipitate is red in colour, there may be some difficulty in determination of end point accurately.
+                    Hence sometimes a methylene-blue indicator is employed for accurate determination of the end point.
+
+                    <img src="rwaction.jpg" style="padding-left: 3%; scale: 0.8;">
+                </p>
+            </div>
+
+        </div>
+        <!-- </div> -->
+        <footer class="bg-blue-500 p-6 w-full"
+            style="background-color: #000000; position: fixed; bottom: 0; margin-left: -20px;">
+            <div class="flex flex-wrap justify-between text-white">
+                <div class="w-full lg:w-auto lg:flex-grow-0">
+                    <span>&copy; 2023 Chem Lab</span>
+                </div>
+                <div class="w-full lg:w-auto lg:flex-grow-0">
+                    <a href="#" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4">
+                        Terms of Service
+                    </a>
+                    <a href="#" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4">
+                        Privacy Policy
+                    </a>
+                    <a href="#" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white">
+                        FAQ
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    </div>
+</div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-firestore.js"></script>
+    <script src="http://roshinjose.com/codepen/jquery_002.js"></script>
+    <script src="http://roshinjose.com/codepen/plugins.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
+</body>
+
+</html>
