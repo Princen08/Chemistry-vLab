@@ -14,23 +14,25 @@
 
 <body class="bg-gray-100 h-screen" onload="myFun()">
     <nav class="bg-blue-50 shadow-md h-22 w-full"
-        style="background-color: whitesmoke; border: 2px solid ; width: 100%; position: fixed; z-index: 1;">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style="padding-top: 7px;">
+        style="background-color: rgb(222, 247, 197); border: 2px solid ; width: 100%; position: fixed; z-index: 1;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style="padding-top: 3px;">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <a href="#" class="flex items-center text-gray-900 hover:text-blue-600"
-                        style="padding-top: 10px; padding-bottom: 10px;">
-                        <svg class="h-9 w-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="padding-top: 10px; padding-bottom: 20px;">
+                        <!-- <svg class="h-9 w-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 1L2 7.5L12 14L22 7.5L12 1Z"></path>
                             <path d="M2 17.5L12 24L22 17.5"></path>
                             <path d="M2 7.5L12 14"></path>
                             <path d="M22 7.5L12 14"></path>
-                        </svg>
-                        <span class="ml-2 font-semibold text-xl" style="font-size: 22px;">Chem - Lab</span>
+                        </svg> -->
+                        <span class="ml-2 font-semibold text-xl" style="font-size: 22px; margin-left: -100px; margin-top:10px; letter-spacing: 0px;">
+                            <span style="color: rgb(255, 255, 255); font-weight: bolder;">C</span>
+                            <span>Lab</span>
                     </a>
                     <div class="hidden sm:block sm:ml-10">
-                        <div class="flex mt-4">
+                        <div class="flex mt-4 ml-8">
                             <a href="#"
                                 class="rounded-md  font-medium text-gray-900 hover:text-blue-600 focus:outline-none focus:text-blue-600"
                                 style="font-weight: bold; font-size: 20px; padding-bottom: 10px;">Home</a>
@@ -47,8 +49,9 @@
 
                     <div class="flex items-center mt-2">
                         <i class='fa fa-user-circle' style="font-size: 36px;"></i>
-                        <p id="user" style="color: black;  margin-left: 4px; font-size: 20px; font-weight: 100;"></p>
-                        <a href="index.html"
+                        <p id="user" style="color: black; cursor: pointer;  margin-left: 4px; font-size: 20px; font-weight: 100;"></p>
+                        <a href="index.html" onmouseover="this.style.color = '#FF0400 '";
+                        onmouseout="this.style.color = 'black'";
                             class="ml-20 block px-3 py-2 rounded-md text-base font-medium bg-blue-500 text-black hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                             style="margin-left: 16px; background-color: white; border: 2px solid #000000; font-weight: bolder;">Log
                             Out</a>
@@ -196,7 +199,7 @@
             style="background-color: #000000; position: fixed; bottom: 0; margin-left: -20px;">
             <div class="flex flex-wrap justify-between text-white">
                 <div class="w-full lg:w-auto lg:flex-grow-0">
-                    <span>&copy; 2023 Chem Lab</span>
+                    <span>&copy; 2023 C Lab</span>
                 </div>
                 <div class="w-full lg:w-auto lg:flex-grow-0">
                     <a href="#" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4">
