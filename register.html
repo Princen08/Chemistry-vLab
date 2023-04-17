@@ -9,29 +9,33 @@
    
   </head>
   <body class="bg-gray-100 h-screen">
-    <nav class="bg-blue-50 shadow-md h-22 w-full" style="background-color: whitesmoke; border: 2px solid ; position: fixed; z-index: 1;">
+    <nav class="bg-blue-50 shadow-md h-22 w-full" style="background-color: rgb(222, 247, 197);; border: 2px solid ; position: fixed; top:0; z-index: 1;">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" style="padding-top: 7px;">
         <div class="flex justify-between h-16">
           <div class="flex">
             <a href="#" class="flex items-center text-gray-900 hover:text-blue-600"
               style="padding-top: 10px; padding-bottom: 10px;">
-              <svg class="h-9 w-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              <!-- <svg class="h-9 w-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 1L2 7.5L12 14L22 7.5L12 1Z"></path>
                 <path d="M2 17.5L12 24L22 17.5"></path>
                 <path d="M2 7.5L12 14"></path>
                 <path d="M22 7.5L12 14"></path>
-              </svg>
-              <span class="ml-2 font-semibold text-xl" style="font-size: 22px;">Chem - Lab</span>
+              </svg> -->
+              <span class="ml-2 font-semibold text-xl" style="font-size: 22px; margin-left: -100px; margin-top: -10%; letter-spacing: 0px;">
+              <span style="color: rgb(255, 255, 255); font-weight: bolder;">C</span>
+              <span>Lab</span>
             </a>
           </div>
           <div class="hidden sm:block">
             <div class="flex items-center mt-4">
-              <a href="index.html"
+              <a href="index.html" onmouseover="this.style.color = '#B8F685'";
+              onmouseout="this.style.color = 'black'";
                 class="ml-20 block px-3 py-2 rounded-md text-base font-medium bg-blue-500 text-black hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                 style="margin-left: 16px; background-color: white; border: 2px solid #000000; font-weight: bolder; margin-top: -8px;">Log
                 In</a>
-              <a href="register.html"
+              <a href="register.html" onmouseover="this.style.color = '#B8F685'";
+              onmouseout="this.style.color = 'black'"
                 class="ml-20 block px-3 py-2 rounded-md text-base font-medium bg-blue-500 text-black hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                 style="margin-left: 16px; background-color: white; border: 2px solid #000000; font-weight: bolder; margin-top: -8px;">Register</a>
             </div>
@@ -70,38 +74,30 @@
             </div>
           </div>
         </div>
-        
       </nav>
-      <div id = "alert"class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" style="display: none;" role="alert">
-        <span class="font-medium">Account created successfully!</span>
-      </div>
-      <div id="alert-1" class="flex p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert" style="display: none
-      ;">
-        <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-        <span class="sr-only">Info</span>
-        <div class="ml-3 text-sm font-medium">
-          User already exists!.
-        </div>
-      </div>
+      <div class="bg-red-500 text-white font-bold rounded-lg border shadow-lg p-4 bottom-0 right-0 m-8  opacity-0 transition-opacity duration-500 h-16" style="margin-top: 80px; margin-left: 20%; margin-right: 20%; display: block; background-color:white; border: 2px solid red; color:red;" id="alert">
+        <div style="margin-top: 1px;" id="text">Sorry, that user does not exist.</div>
+          <svg style="margin-left: 95%; margin-top:-15px" onclick="fun()" class="w-4 h-4 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+       </div>
     <div class="flex items-center justify-center h-screen">
-        <div class="min-h-screen flex flex-col items-center justify-center w-full" >
-            <div id="register-form" class="max-w-md w-full bg-white p-8 rounded-lg shadow-md" style="border: 2px solid black;">
+        <div class="min-h-screen flex flex-col items-center justify-center w-full"  >
+            <div id="register-form" class="max-w-md w-full bg-white p-8 rounded-lg shadow-md" style="border: 2px solid black; margin-top:-15%;">
               <h2 class="text-2xl font-bold mb-4">Register</h2>
               <div class="mb-4">
                 <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>
-                <input type="text" id="name" name="name" class="border rounded-lg px-3 py-2 w-full" required />
+                <input type="text" id="name" name="name" placeholder="Name" class="border rounded-lg px-3 py-2 w-full"required />
               </div>
               <div class="mb-4">
                 <label for="email" class="block text-gray-700 font-bold mb-2">Email:</label>
-                <input type="email" id="email" name="email" class="border rounded-lg px-3 py-2 w-full" required />
+                <input type="email" id="email"placeholder = "Email" name="email" class="border rounded-lg px-3 py-2 w-full" required />
               </div>
               <div class="mb-4">
                 <label for="password" class="block text-gray-700 font-bold mb-2">Password:</label>
-                <input type="password" id="password" name="password" class="border rounded-lg px-3 py-2 w-full" required />
+                <input type="password" id="password" placeholder="Password" name="password" class="border rounded-lg px-3 py-2 w-full" required />
               </div>
               <div class="mb-4">
                 <label for="confirm-password" class="block text-gray-700 font-bold mb-2">Confirm Password:</label>
-                <input type="password" id="confirm-password" name="confirm-password" class="border rounded-lg px-3 py-2 w-full" required />
+                <input type="password" id="confirm-password" placeholder="Confirm Password" name="confirm-password" class="border rounded-lg px-3 py-2 w-full" required />
               </div>
               <button id = "sub-reg" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300" style="background-color: rgb(0, 0, 0); border: 2px solid #000000; font-weight: bolder; margin-top: -8px;">Register</button>
             </div>
@@ -110,7 +106,7 @@
     <footer class="bg-blue-500 p-6 w-full" style="background-color: #000000; position: fixed; bottom: 0; margin-left: 0px;">
       <div class="flex flex-wrap justify-between text-white">
         <div class="w-full lg:w-auto lg:flex-grow-0">
-          <span>&copy; 2023 Chem Lab</span>
+          <span>&copy; 2023 C Lab</span>
         </div>
         <div class="w-full lg:w-auto lg:flex-grow-0">
           <a href="#" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4">
