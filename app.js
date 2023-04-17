@@ -18,16 +18,20 @@ const db = firebase.firestore();
 const reg = document.querySelector("#sub-reg");
 const log = document.querySelector("#sub-login");
 
-const alertContainer = document.getElementById("alert");
-const alertContainer1 = document.getElementById("alert-1");
+// setTimeout(function() {
+//   document.querySelector('.alert').classList.add('opacity-0');
+// }, 2000); // 5 seconds
+
+
+function fun() {
+  document.getElementById("alert").style.opacity = 0;
+}
 
 
 if (reg != null) {
   reg.addEventListener("click", (e) => {
     e.preventDefault();
     localStorage.clear();
-    alertContainer1.style.display = "none";
-    alertContainer.style.display = "none";
     const email = document.getElementById("email").value;
     const name = document.getElementById("name").value;
     const password = document.getElementById("password").value;
@@ -42,7 +46,10 @@ if (reg != null) {
         .get()
         .then((querySnapshot) => {
           if (!querySnapshot.empty) {
-            alertContainer1.style.display = "block";
+           document.getElementById("alert").style.opacity = 100;
+           document.getElementById("alert").style.borderColor = "red";
+                document.getElementById("alert").style.color = "red";
+           document.getElementById("text").innerText = "Sorry, that user already exists.";
           } else {
             myCollection
               .add({
@@ -51,7 +58,10 @@ if (reg != null) {
                 name: name,
               })
               .then((docRef) => {
-                alertContainer.style.display = "block";
+                document.getElementById("alert").style.opacity = 100;
+                document.getElementById("alert").style.borderColor = "green";
+                document.getElementById("alert").style.color = "green";
+                document.getElementById("text").innerText = "User created successfully!";
               })
               .catch((error) => {
                 console.log("Error adding user: ", error);
@@ -69,7 +79,6 @@ if (log != null) {
   log.addEventListener("click", (e) => {
     e.preventDefault();
     localStorage.clear();
-    alertContainer1.style.display = "none";
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const myCollection = db.collection("users");
@@ -85,7 +94,7 @@ if (log != null) {
 
           window.location.replace("dashboard.html");
         } else {
-          alertContainer1.style.display = "block";
+          document.getElementById("alert").style.opacity = 100;
         }
       }), (error) => {
         console.log("Error getting documents: ", error);
