@@ -9,6 +9,8 @@ const firebaseConfig = {
   measurementId: "G-DCV6CWC2TH",
 };
 
+
+
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
@@ -123,6 +125,8 @@ for (i = 0; i < coll.length; i++) {
 }
 
 function theory() {
+  document.getElementsByTagName("footer")[0].style.display="block";
+
   document.getElementById("title_").innerText = 'Theory';
   document.getElementById("c2").style.display = 'block';
   document.getElementById("c1").innerText = "Objective";
@@ -194,7 +198,9 @@ function theory() {
 }
 
 function procedure() {
+  document.getElementsByTagName("footer")[0].style.display="block";
 
+  // document.getElementById("c2").style.display = 'block';
   document.getElementById("title_").innerText = 'Procedure';
   document.getElementById("c2").style.display = 'block';
   document.getElementById("c1").innerText = "Standardisation of Fehling’s Solution";
@@ -224,11 +230,11 @@ function procedure() {
   `
 }
 
-function simulator() {
-  document.getElementById("title_").innerText = 'Simulator';
-}
 function quiz() {
+  document.getElementsByTagName("footer")[0].style.display="block";
+
   document.getElementById("title_").innerText = 'Quiz';
+  document.getElementById("c2").style.display = 'block';
   document.getElementById("c1").innerText = "Question 1";
   document.getElementById("c2").innerText = "Question 2";
   document.getElementById("d1").innerHTML = `<p style="text-align: justify;">
@@ -255,10 +261,360 @@ function quiz() {
    <br>
   </p>`
 }
+
+
 function help() {
+  document.getElementsByTagName("footer")[0].style.display="block";
   document.getElementById("title_").innerText = 'Help';
+  document.getElementById("c2").style.display = 'block';
   document.getElementById("c1").innerText = "Coming soon!";
   document.getElementById("c2").innerText = "Coming soon!";
   document.getElementById("d1").innerText = "";
   document.getElementById("d2").innerText = "";
 }
+
+
+//so that animation is visible --> not sure
+document.addEventListener('reload',(event)=>{
+  event.preventDefault();
+})
+
+//Global Variables for Animation
+var animate;
+var titrant_used=0;
+var glucose=0.5;
+var drop_speed=1;
+var isDropFalling=0;
+var Normality=0.01
+var volume=10;
+var isMethyleneAdded=0;
+var currstage=1;
+var lag=3;
+//simulator template
+function simulator() {
+  document.getElementsByTagName("footer")[0].style.display="none";
+  document.getElementById("title_").innerText = 'Simulator';
+  document.getElementById("c2").style.display = 'none';
+  document.getElementById("c1").innerText = 'Simulator';
+  document.getElementById("d1").innerHTML=`
+  <div class="modal" tabindex="-1" role="dialog">
+   <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Methylene Blue</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="Close()" style="background-color:"#6C757D">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+    <div id="simulator" style="display:flex">
+      <div id="canvas-container">
+         <canvas id="canvas"></canvas>
+      </div>
+      <div id="Control_pannel" style="justify-between"> 
+          <!-- titran dropdown -->
+          <div class="dropdown padde-content">
+              <button id="titrant" class="btn btn-secondary dropdown-toggle padde-content" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Water Melon
+              </button>
+          </div>
+          <!-- speed of drops -->
+          <label for="customRange1" class="form-label padde-content">Speed of drops : </label>
+          <div id="val1" class="inline_div padde-content">1</div>
+          <input type="range" class="form-range padde-content" min="1" max="3" value="1" id="customRange1" onchange="change_range(event)">
+          <div class="padde-content">Titrate : Feling's solution</div>
+          <!-- Normality -->
+          <label for="customRange2" class="form-label padde-content">Normality : </label>
+          <div id="val2" class="inline_div padde-content">0.01 N</div>
+          <input type="range" class="form-range padde-content" min="0.01" max="0.1" step="0.02" value="0" id="customRange2" onchange="change_range(event)">
+          <!-- Volume -->
+          <label for="customRange3" class="form-label padde-content">Volume : </label>
+          <div id="val3" class="inline_div padde-content">10 ml</div>
+          <input type="range" class="form-range padde-content" min="10" max="20" value="0" id="customRange3" onchange="change_range(event)">
+          <button type="button" class="btn btn-secondary" id="Methylen" onclick="AddMethylene()">Methylen Blue</button>
+          <button type="button" class="btn btn-secondary" id="Start" onclick="turnon()">Start</button>
+          <button type="button" class="btn btn-secondary" id="Stop" onclick="StopDrop()">Stop</button>
+          <div class="Result">
+              <div class="title">Result</div>
+              <div style="padding: 5px 5px">
+                 <div class="inline_div">Titrant Used :</div>
+                 <div class="inline_div">0ml</div>
+              </div>
+          </div>
+      </div>
+  </div>
+    </div>
+  `
+  document.getElementById("Methylen").style.disabled=true;
+  document.getElementsByClassName("modal")[0].style.display='none';
+  var canvas = document.getElementById('canvas');
+  var canvasContainer = document.getElementById('canvas-container');
+  canvas.height = canvasContainer.clientHeight;
+  canvas.width = canvasContainer.clientWidth;
+  var ctx = canvas.getContext('2d');
+  DrawSetup(ctx);
+}
+
+//setup details
+var Setup_img1 = new Image();
+Setup_img1.src = 'initial_img.png';
+var Setup_img2 = new Image();
+Setup_img2.src = 'img_after_methylen.png';
+var Setup_img3 = new Image();
+Setup_img3.src = 'Final_image.png';
+
+//Burette Details
+class Burette{
+  constructor(x,y){
+    this.x=x;
+    this.y=y;
+    this.width=10;
+    this.height=100;
+  }
+  draw(ctx){
+    ctx.fillStyle="transparent";
+    ctx.fillRect(this.x,this.y,this.width,this.height);
+  }
+}
+
+var burette=new Burette(300,200);
+
+//For Drawing the Setup
+function DrawSetup(ctx){
+  console.log("Stage is"+ currstage.toString());
+    var x=Setup_img1;
+    if(currstage===1)x=Setup_img1;
+    else if(currstage===2)x=Setup_img2;
+    else x=Setup_img3;
+    ctx.drawImage(x, 40, 30, 550, 550);
+}
+
+
+//Drop Detials
+class Drop{
+  constructor(x,y,img,start,end){
+     this.x=x;
+     this.y=y;
+     this.img=img;
+     this.v=1;
+     this.start=start;
+     this.end=end;
+  }
+  UpdatePos(){
+      this.y+=this.v;
+      if(this.y>=this.end){
+        change_result();
+        this.y=this.start;
+      }
+  }
+  draw(ctx){
+    ctx.drawImage(this.img, this.x, this.y,10,10);
+  }
+}
+var Drop_img = new Image();
+Drop_img.src = 'drop.png';
+var drop1=new Drop(297,330,Drop_img,330,430);
+var drop2=new Drop(297,330,Drop_img,330,430);
+var drop3=new Drop(297,330,Drop_img,330,430);
+
+//For Drop animation
+
+//For speed=1
+function StartDrop1(){
+  console.log("Avi to Gau");
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  // Clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Draw the Setup again
+  DrawSetup(ctx);
+  // Now Draw the Drop and update its coordinates
+  drop1.draw(ctx);
+  drop1.UpdatePos();
+  if(isDropFalling) animate=requestAnimationFrame(StartDrop3);
+  else StopDrop();
+}
+
+//for speed=2
+function StartDrop2(){
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  // Clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Draw the Setup again
+  DrawSetup(ctx);
+  // Now Draw the Drop and update its coordinates
+  drop1.draw(ctx);
+  drop1.UpdatePos();
+  drop2.draw(ctx);
+  drop2.UpdatePos();
+  
+  if(isDropFalling) animate=requestAnimationFrame(StartDrop2);
+  else StopDrop();
+}
+
+//for speed=3
+function StartDrop3(){
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  // Clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Draw the Setup again
+  DrawSetup(ctx);
+  // Now Draw the Drop and update its coordinates
+  drop1.draw(ctx);
+  drop1.UpdatePos();
+  drop2.draw(ctx);
+  drop2.UpdatePos();
+  drop3.draw(ctx);
+  drop3.UpdatePos();
+  if(isDropFalling) animate=requestAnimationFrame(StartDrop3);
+  else StopDrop();
+}
+
+//Turn on the animation;
+function turnon(){
+  isDropFalling=1;
+  // document.getElementById("customRange1").disabled=true;
+  document.getElementById("customRange3").disabled=true;
+  document.getElementById("customRange2").disabled=true;
+  StartAction();
+}
+
+//start action
+function StartAction(){
+  if(!isDropFalling)return;
+  console.log("Drop speed "+ drop_speed.toString());
+  if(drop_speed==1){
+    console.log("hi");
+    drop1.start=330;
+    drop1.y=330;
+    drop1.end=430;
+    drop1.v=1;
+    StartDrop1();
+  }
+  else if(drop_speed==2){
+    drop2.y=380;
+    drop1.end=380;
+    drop2.start=380;
+    drop2.end=430;
+    drop1.v=2;
+    drop2.v=2;
+    StartDrop2();
+  }
+  else {
+    drop1.v=3;
+    drop2.v=3;
+    drop3.v=3;
+    drop1.end=330+33;
+    drop2.y=330+33;
+    drop2.start=330+33;
+    drop2.end=330+66;
+    drop3.y=330+66;
+    drop3.start=330+66;
+    drop3.end=430;
+    StartDrop3();
+  }
+}
+
+//For updating the Speed
+function UpdateSpeed(event){
+    drop_speed=event.target.value;
+    console.log(drop_speed);
+    cancelAnimationFrame(animate);
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    DrawSetup(ctx);
+    StartAction();
+}
+
+//Stop Stop animation
+function StopDrop(){
+  cancelAnimationFrame(animate);
+  isDropFalling=0;
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  // Clear canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Draw the Setup again
+  DrawSetup(ctx);
+}
+
+//Simulator extra js for control pannel
+function change_titrant(event){
+  document.getElementById("titrant").innerText=event.target.innerText;
+}
+
+function change_range(event){
+  if(event.target.id==="customRange1")UpdateSpeed(event);
+  else if(event.target.id==="customRang2"){
+    Normality=event.target.value;
+  }
+  else volume=event.target.value;
+  var x=event.target.id.length-1;
+  x=event.target.id[x];
+  document.getElementById('val'+x).innerText=event.target.value+(event.target.id==="customRange1"?"":event.target.id==="customRange2"?" N":" ml");
+}
+
+
+function change_result(){
+  var x=document.querySelectorAll(".Result div")[1];
+  titrant_used+=0.1;
+  titrant_used=titrant_used*(10000);
+  titrant_used=Math.round(titrant_used);
+  titrant_used/=10000;
+  var target=(Normality*volume*10)/glucose;
+  console.log(target);
+  console.log(titrant_used);
+  x.innerText=titrant_used.toString()+"ml";
+  if(titrant_used>target){  
+    StopDrop();
+    if(!isMethyleneAdded){
+      var x=document.getElementsByClassName("modal")[0];
+      x.style.display="block";
+      x.style.position="absolute";
+      x.style.top="300px";
+      document.getElementById("simulator").style.opacity="0.2";
+      x.style.opacity="1";
+    }
+    else if(lag--){
+      console.log(isMethyleneAdded);
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      currstage=3;
+      DrawSetup(ctx);
+    }
+  }
+}
+
+//close function of dialog Box
+function Close(){
+  document.getElementById("simulator").style.opacity="1";
+  var x=document.getElementsByClassName("modal")[0];
+  x.style.display="none";
+  document.getElementById("Methylen").style.disabled=false;
+  currstage=2;
+  var canvas = document.getElementById('canvas');
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  DrawSetup(ctx);
+}
+
+
+//After adding methylene
+function AddMethylene(){
+  currstage=1;
+  isMethyleneAdded=1;
+}
+
+
+
+
+
+

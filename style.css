@@ -235,8 +235,11 @@ button:hover {
 		 background-position: 50px 50px;
 	}
 }
+
 /* Main styles */
  body {
+
+    z-index: -10;
 	 /* text-align: center; */
 	/* img size is 50x50 */
 	 background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC") repeat 0 0;
@@ -257,3 +260,68 @@ button:hover {
  li{
   margin-bottom: 10px;
  }
+
+#canvas-container {
+  width: 800px;
+  height: 600px;
+}
+
+#canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* simulator-related-css */
+
+.simulator_window{
+  display: flex;
+  border: 10px solid black;
+  border-radius: 10px;
+  background-color: white;
+  padding: 10px auto;
+}
+
+
+/* simulator css */
+#Control_pannel{
+  align-items: left;
+  padding: 0%;
+}
+.padde-content{
+  margin: 10px;
+}
+.inline_div{
+  display: inline;
+}
+.btn-secondary{
+  display: block;
+  margin: 20px auto;
+}
+.form-range{
+  display: block;
+  min-width: 200px;
+  max-width: 1000px;
+}
+input[type=range]::-webkit-slider-thumb {
+  background-color: #6C757D; 
+}
+input[type=range]::selection{
+  background-color: #6C757D; 
+}
+label{
+  display: inline;
+}
+
+.Result{
+  border: 2px solid #000000;
+  border-radius: 10px;
+  color: black;
+}
+.Result .title{
+  padding: 0px 5px;
+  font-size: 1.5em;
+  color: white;
+  background-color: #6C757D;
+  border-radius: 10px 10px 0px 0px;
+}
+
